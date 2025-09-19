@@ -1,0 +1,1 @@
+export type Board = ('X' | 'O' | null)[];
