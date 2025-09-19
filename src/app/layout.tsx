@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className="bg-[#111317] text-white">
+      <body>
         <main>{children}</main>
         <Toaster richColors position="top-right" />
       </body>

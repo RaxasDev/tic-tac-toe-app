@@ -6,6 +6,7 @@ import CustomButton from "../components/ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { routes } from "../routes/routes";
+import { StringUtils } from "../utils/string.utils";
 
 export default function ChoosePlayerPage() {
   const [mounted, setMounted] = useState(false);
@@ -32,17 +33,21 @@ export default function ChoosePlayerPage() {
       return;
     }
 
+    if (StringUtils.normalize(playerX) === StringUtils.normalize(playerO)) {
+      toast.error("Os jogadores X e O devem ser diferentes!");
+      return;
+    }
+
     // TODO -> salvar player
 
-    router.push(
-      `/${routes.board}?x=${encodeURIComponent(playerX)}&o=${encodeURIComponent(playerO)}`
-    );
+    const url = `/${routes.board}?player-x=${encodeURIComponent(playerX)}&player-o=${encodeURIComponent(playerO)}`;
+    router.push(url);
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#111317] text-white">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent leading-16">
           Configurar Jogadores
         </h1>
         <p className="mt-2 text-gray-300">
@@ -50,7 +55,7 @@ export default function ChoosePlayerPage() {
         </p>
       </div>
 
-      <div className="w-full max-w-md rounded-2xl bg-[#1a1d23] p-8 shadow-lg">
+      <div className="w-full max-w-md sm:min-w-[600px] rounded-2xl bg-[#1a1d23] p-8 shadow-lg">
         <CustomInput
           label="Jogador"
           placeholder="Nome do Jogador X"
