@@ -1,6 +1,6 @@
-import { Player } from "./player.interface";
+import { Player } from './player.interface';
 
 export interface IWinnerInfo {
-	player: Player;
-	line: number[];
+  player: Player;
+  line: number[];
 }

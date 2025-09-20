@@ -1,17 +1,17 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Users, X, Circle } from "lucide-react";
-import CustomInput from "../components/ui/Input";
-import CustomButton from "../components/ui/button";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { routes } from "../routes/routes";
-import { StringUtils } from "../utils/string.utils";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Users, X, Circle } from 'lucide-react';
+import CustomInput from '../components/ui/Input';
+import CustomButton from '../components/ui/button';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { routes } from '../routes/routes';
+import { StringUtils } from '../utils/string.utils';
 
 export default function ChoosePlayerPage() {
   const [mounted, setMounted] = useState(false);
-  const [playerX, setPlayerX] = useState("");
-  const [playerO, setPlayerO] = useState("");
+  const [playerX, setPlayerX] = useState('');
+  const [playerO, setPlayerO] = useState('');
   const [errors, setErrors] = useState({ x: false, o: false });
   const router = useRouter();
 
@@ -28,19 +28,19 @@ export default function ChoosePlayerPage() {
     if (xEmpty || oEmpty) {
       setErrors({ x: xEmpty, o: oEmpty });
       toast.error(
-        "É necessário configurar os dois jogadores antes de iniciar o game!"
+        'É necessário configurar os dois jogadores antes de iniciar o game!'
       );
       return;
     }
 
     if (StringUtils.normalize(playerX) === StringUtils.normalize(playerO)) {
-      toast.error("Os jogadores X e O devem ser diferentes!");
+      toast.error('Os jogadores X e O devem ser diferentes!');
       return;
     }
 
-    // TODO -> salvar player
-
-    const url = `/${routes.board}?player-x=${encodeURIComponent(playerX)}&player-o=${encodeURIComponent(playerO)}`;
+    const url = `/${routes.board}?player-x=${encodeURIComponent(
+      playerX
+    )}&player-o=${encodeURIComponent(playerO)}`;
     router.push(url);
   };
 

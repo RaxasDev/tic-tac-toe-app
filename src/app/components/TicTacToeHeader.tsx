@@ -1,9 +1,9 @@
-"use client";
-import { useMemo } from "react";
-import { User, Award, RefreshCw, Settings, BarChart2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { routes } from "../routes/routes";
-import { Board } from "../types/board.type";
+'use client';
+import { useMemo } from 'react';
+import { User, Award, RefreshCw, Settings, BarChart2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { routes } from '../routes/routes';
+import { Board } from '../types/board.type';
 
 interface Props {
   playerXId?: string | null;
@@ -11,7 +11,7 @@ interface Props {
   onInvalidPlayers?: () => void;
   board: Board;
   isXNext: boolean;
-  winnerInfo: { player: "X" | "O"; line: number[] } | null;
+  winnerInfo: { player: 'X' | 'O'; line: number[] } | null;
   resetBoard: () => void;
 }
 
@@ -29,25 +29,25 @@ const TicTacToeHeader: React.FC<Props> = ({
   if (!playerXId || !playerOId) onInvalidPlayers?.();
 
   const buttons = [
-    { icon: RefreshCw, text: "Nova Partida", onClick: resetBoard },
+    { icon: RefreshCw, text: 'Nova Partida', onClick: resetBoard },
     {
       icon: Settings,
-      text: "Trocar Jogador",
+      text: 'Trocar Jogador',
       onClick: () => router.push(routes.choosePlayer),
     },
     {
       icon: BarChart2,
-      text: "Estatísticas",
-      onClick: () => router.push(routes.choosePlayer),
+      text: 'Estatísticas',
+      onClick: () => router.push(routes.analytics),
     },
   ];
 
   const winnerSide = winnerInfo?.player;
   const winnerName = useMemo(() => {
     if (!winnerSide) return null;
-    return winnerSide === "X"
-      ? playerXId ?? "Jogador X"
-      : playerOId ?? "Jogador O";
+    return winnerSide === 'X'
+      ? playerXId ?? 'Jogador X'
+      : playerOId ?? 'Jogador O';
   }, [winnerSide, playerXId, playerOId]);
 
   return (
@@ -56,8 +56,8 @@ const TicTacToeHeader: React.FC<Props> = ({
         {!winnerInfo ? (
           <>
             <User size={18} className="text-white" />
-            Vez de {isXNext ? playerXId ?? "X" : playerOId ?? "O"} (
-            {isXNext ? "X" : "O"})
+            Vez de {isXNext ? playerXId ?? 'X' : playerOId ?? 'O'} (
+            {isXNext ? 'X' : 'O'})
           </>
         ) : (
           <>
@@ -81,7 +81,7 @@ const TicTacToeHeader: React.FC<Props> = ({
                        transition-all duration-300 hover:scale-105 cursor-pointer"
             style={{
               background:
-                "linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))",
+                'linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))',
             }}
           >
             <Icon size={18} />

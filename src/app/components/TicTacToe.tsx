@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Board } from "../types/board.type";
+import { Board } from '../types/board.type';
 
 interface Props {
   board: Board;
   isXNext: boolean;
-  winnerInfo: { player: "X" | "O"; line: number[] } | null;
+  winnerInfo: { player: 'X' | 'O'; line: number[] } | null;
   makeMove: (index: number) => void;
 }
 
@@ -20,25 +20,25 @@ const TicTacToe: React.FC<Props> = ({ board, winnerInfo, makeMove }) => {
             className={`rounded-lg transition-shadow duration-300`}
             style={{
               boxShadow: isWinningSquare
-                ? "0 0 20px 5px rgba(0, 255, 0, 0.6)"
-                : "0 8px 15px rgba(0, 0, 0, 0.2)",
+                ? '0 0 20px 5px rgba(0, 255, 0, 0.6)'
+                : '0 8px 15px rgba(0, 0, 0, 0.2)',
             }}
           >
             <button
               disabled={!!winnerInfo}
-              className="aspect-square w-full flex items-center justify-center text-3xl sm:text-4xl font-bold
-             rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer disabled:cursor-not-allowed
-             disabled:opacity-70"
+              className="flex items-center justify-center w-full text-3xl font-bold transition-all duration-300 
+              rounded-lg cursor-pointer aspect-square sm:text-4xl hover:scale-105 
+              disabled:cursor-not-allowed disabled:opacity-70"
               style={{
                 background: isWinningSquare
-                  ? "linear-gradient(135deg, hsl(120 100% 50%), hsl(60 100% 60%))"
-                  : "linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))",
+                  ? 'linear-gradient(135deg, hsl(120 100% 50%), hsl(60 100% 60%))'
+                  : 'linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))',
                 color:
-                  cell === "X"
-                    ? "hsl(0 85% 65%)"
-                    : cell === "O"
-                    ? "hsl(200 100% 60%)"
-                    : "white",
+                  cell === 'X'
+                    ? 'hsl(0 85% 65%)'
+                    : cell === 'O'
+                    ? 'hsl(200 100% 60%)'
+                    : 'white',
               }}
               onClick={() => makeMove(idx)}
             >

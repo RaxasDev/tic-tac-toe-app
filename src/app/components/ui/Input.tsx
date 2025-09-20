@@ -1,4 +1,4 @@
-import { UserCircle } from "lucide-react";
+import { UserCircle } from 'lucide-react';
 
 interface IInputProps {
   label: string;
@@ -32,8 +32,8 @@ export default function CustomInput({
         placeholder={placeholder}
         className={`rounded-lg bg-[#0b0d10] px-4 py-2 text-white placeholder-gray-400 border ${
           error
-            ? "border-red-500 focus:ring-red-500"
-            : "border-gray-700 focus:ring-indigo-500"
+            ? 'border-red-500 focus:ring-red-500'
+            : 'border-gray-700 focus:ring-indigo-500'
         } focus:outline-none focus:ring-2`}
       />
     </div>

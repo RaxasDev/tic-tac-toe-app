@@ -1,16 +1,16 @@
-"use client";
-import TicTacToe from "../components/TicTacToe";
-import TicTacToeHeader from "../components/TicTacToeHeader";
-import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { useTicTacToe } from "../hooks/use-tic-tac-toe";
+'use client';
+import TicTacToe from '../components/TicTacToe';
+import TicTacToeHeader from '../components/TicTacToeHeader';
+import { useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
+import { useTicTacToe } from '../hooks/use-tic-tac-toe';
 
 const BoardPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const playerX = searchParams.get("player-x");
-  const playerO = searchParams.get("player-o");
+  const playerX = searchParams.get('player-x');
+  const playerO = searchParams.get('player-o');
 
-  const handleInvalidPlayers = () => toast.error("Jogadores inválidos!");
+  const handleInvalidPlayers = () => toast.error('Jogadores inválidos!');
   const game = useTicTacToe();
 
   return (
@@ -19,7 +19,7 @@ const BoardPage: React.FC = () => {
         className="w-full max-w-md sm:min-w-[600px] bg-white shadow-md rounded-md p-6 mb-6 text-center flex flex-col items-center"
         style={{
           background:
-            "linear-gradient(145deg, hsl(220 15% 22%), hsl(220 15% 28%))",
+            'linear-gradient(145deg, hsl(220 15% 22%), hsl(220 15% 28%))',
         }}
       >
         <TicTacToeHeader
