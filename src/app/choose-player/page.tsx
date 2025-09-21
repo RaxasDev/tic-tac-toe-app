@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Users, X, Circle } from 'lucide-react';
 import CustomInput from '../components/ui/Input';
 import CustomButton from '../components/ui/button';

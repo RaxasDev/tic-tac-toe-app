@@ -1,29 +1,16 @@
-const BASE_URL = 'http://localhost:5000/api/v1/analytics';
+import { BASE_URL, request } from './custom-request.service';
 
-async function request<T>(url: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    ...options,
-  });
-
-  if (!response.ok) {
-    throw new Error(`Erro ${response.status}: ${response.statusText}`);
-  }
-
-  return response.json();
-}
+const routePrefix = 'analytics';
 
 export const analyticsService = {
   getMatchesHistory: (pageNumber = 1, pageSize = 5) =>
     request(
-      `${BASE_URL}/matches-history?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `${BASE_URL}/${routePrefix}/matches-history?pageNumber=${pageNumber}&pageSize=${pageSize}`
     ),
 
-  getChartsData: () => request(`${BASE_URL}/charts-data`),
+  getChartsData: () => request(`${BASE_URL}/${routePrefix}/charts-data`),
 
-  getInfoCards: () => request(`${BASE_URL}/info-cards`),
+  getInfoCards: () => request(`${BASE_URL}/${routePrefix}/info-cards`),
 
-  getRanking: () => request(`${BASE_URL}/ranking`),
+  getRanking: () => request(`${BASE_URL}/${routePrefix}/ranking`),
 };

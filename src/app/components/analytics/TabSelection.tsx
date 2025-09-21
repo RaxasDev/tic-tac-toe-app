@@ -19,6 +19,7 @@ export default function TabsSection({
   matchesHistory,
   chartsData,
   ranking,
+  loading
 }: TabsSectionProps) {
   const [active, setActive] = useState('Visão Geral');
   const tabs = ['Visão Geral', 'Ranking', 'Histórico'];

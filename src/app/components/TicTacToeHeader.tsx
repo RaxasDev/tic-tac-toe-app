@@ -8,7 +8,6 @@ import { Board } from '../types/board.type';
 interface Props {
   playerXId?: string | null;
   playerOId?: string | null;
-  onInvalidPlayers?: () => void;
   board: Board;
   isXNext: boolean;
   winnerInfo: { player: 'X' | 'O'; line: number[] } | null;
@@ -18,15 +17,12 @@ interface Props {
 const TicTacToeHeader: React.FC<Props> = ({
   playerXId,
   playerOId,
-  onInvalidPlayers,
   board,
   isXNext,
   winnerInfo,
   resetBoard,
 }) => {
   const router = useRouter();
-
-  if (!playerXId || !playerOId) onInvalidPlayers?.();
 
   const buttons = [
     { icon: RefreshCw, text: 'Nova Partida', onClick: resetBoard },

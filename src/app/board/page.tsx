@@ -1,17 +1,29 @@
 'use client';
 import TicTacToe from '../components/TicTacToe';
 import TicTacToeHeader from '../components/TicTacToeHeader';
-import { useSearchParams } from 'next/navigation';
-import { toast } from 'sonner';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTicTacToe } from '../hooks/use-tic-tac-toe';
+import { routes } from '../routes/routes';
+import { useState, useEffect } from 'react';
 
 const BoardPage: React.FC = () => {
   const searchParams = useSearchParams();
   const playerX = searchParams.get('player-x');
   const playerO = searchParams.get('player-o');
+  const router = useRouter();
+  const [validPlayers, setValidPlayers] = useState(true);
+  const game = useTicTacToe({ playerXName: playerX, playerOName: playerO });
 
-  const handleInvalidPlayers = () => toast.error('Jogadores inválidos!');
-  const game = useTicTacToe();
+  useEffect(() => {
+    if (!playerX || !playerO) {
+      setValidPlayers(false);
+      router.push(routes.choosePlayer);
+    }
+  }, [playerX, playerO, router]);
+
+  if (!validPlayers) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#1a1d23] p-4">
@@ -25,7 +37,6 @@ const BoardPage: React.FC = () => {
         <TicTacToeHeader
           playerXId={playerX}
           playerOId={playerO}
-          onInvalidPlayers={handleInvalidPlayers}
           board={game.board}
           isXNext={game.isXNext}
           winnerInfo={game.winnerInfo}
