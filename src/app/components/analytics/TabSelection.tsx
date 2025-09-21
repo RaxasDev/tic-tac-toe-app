@@ -3,23 +3,27 @@ import { useState } from 'react';
 import VictoryChart from './VictoryChart';
 import MatchesChart from './MatchesChart';
 import RankingList from './RankingList';
-import { IMatchHistory } from '@/app/interfaces/match-history.interface';
 import MatchHistoryList from './MatchHistoryList';
+import { IMatchHistory } from '@/app/interfaces/match-history.interface';
 import { IChartsData } from '@/app/interfaces/charts-data.interface';
 import { IPlayerRanking } from '@/app/interfaces/player-ranking.interface';
+import { IPagedQueryResult } from '@/app/interfaces/paged-query-result.interface';
 
 interface TabsSectionProps {
   matchesHistory: IMatchHistory[];
+  matchesPagination: IPagedQueryResult<IMatchHistory> | null;
   chartsData: IChartsData | null;
   ranking: IPlayerRanking[];
   loading: boolean;
+  onMatchesPageChange: (page: number) => void;
 }
 
 export default function TabsSection({
-  matchesHistory,
+  matchesPagination,
   chartsData,
   ranking,
-  loading
+  loading,
+  onMatchesPageChange,
 }: TabsSectionProps) {
   const [active, setActive] = useState('Visão Geral');
   const tabs = ['Visão Geral', 'Ranking', 'Histórico'];
@@ -59,7 +63,11 @@ export default function TabsSection({
         {active === 'Ranking' && <RankingList players={ranking} />}
 
         {active === 'Histórico' && (
-          <MatchHistoryList matches={matchesHistory} />
+          <MatchHistoryList
+            pagedMatches={matchesPagination}
+            onPageChange={onMatchesPageChange}
+            loading={loading}
+          />
         )}
       </div>
     </div>

@@ -1,10 +1,15 @@
+import { IMatchHistory } from '../interfaces/match-history.interface';
+import { IPagedQueryResult } from '../interfaces/paged-query-result.interface';
 import { BASE_URL, request } from './custom-request.service';
 
 const routePrefix = 'analytics';
 
 export const analyticsService = {
-  getMatchesHistory: (pageNumber = 1, pageSize = 5) =>
-    request(
+  getMatchesHistory: (
+    pageNumber: number = 1,
+    pageSize: number = 5
+  ): Promise<IPagedQueryResult<IMatchHistory>> =>
+    request<IPagedQueryResult<IMatchHistory>>(
       `${BASE_URL}/${routePrefix}/matches-history?pageNumber=${pageNumber}&pageSize=${pageSize}`
     ),
 

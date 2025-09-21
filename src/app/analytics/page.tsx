@@ -11,8 +11,16 @@ import { useEffect } from 'react';
 export default function AnalyticsPage() {
   const router = useRouter();
   const redirectChoosePlayer = () => router.push(routes.choosePlayer);
-  const { loading, matchesHistory, chartsData, infoCards, ranking, fetchAll } =
-    useAnalytics();
+  const {
+    loading,
+    matchesHistory,
+    matchesPagination,
+    chartsData,
+    infoCards,
+    ranking,
+    fetchAll,
+    fetchMatchesPage,
+  } = useAnalytics();
 
   useEffect(() => {
     fetchAll();
@@ -75,9 +83,11 @@ export default function AnalyticsPage() {
       <StatsGrid infoCards={infoCards} loading={loading} />
       <TabsSection
         matchesHistory={matchesHistory}
+        matchesPagination={matchesPagination}
         chartsData={chartsData}
         ranking={ranking}
         loading={loading}
+        onMatchesPageChange={(page: number) => fetchMatchesPage(page, 5)}
       />
     </div>
   );

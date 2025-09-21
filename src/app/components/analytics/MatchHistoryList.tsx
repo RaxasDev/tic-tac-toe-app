@@ -1,18 +1,24 @@
-'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import MatchHistoryRow from './MatchHistoryRow';
-import { IMatchHistory } from '@/app/interfaces/match-history.interface';
 import Pagination from '../ui/Pagination';
+import { IMatchHistory } from '@/app/interfaces/match-history.interface';
+import { IPagedQueryResult } from '@/app/interfaces/paged-query-result.interface';
+
 interface MatchHistoryListProps {
-  matches: IMatchHistory[];
+  pagedMatches: IPagedQueryResult<IMatchHistory> | null;
+  onPageChange: (page: number) => void;
+  loading: boolean;
 }
 
-export default function MatchHistoryList({ matches }: MatchHistoryListProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+export default function MatchHistoryList({
+  pagedMatches,
+  onPageChange,
+  loading,
+}: MatchHistoryListProps) {
+  if (loading) return <p className="text-gray-400">Carregando...</p>;
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentMatches = matches.slice(startIndex, startIndex + itemsPerPage);
+  if (!pagedMatches || pagedMatches.items.length === 0)
+    return <p className="text-gray-400">Nenhuma partida encontrada.</p>;
 
   return (
     <div
@@ -26,22 +32,16 @@ export default function MatchHistoryList({ matches }: MatchHistoryListProps) {
         Histórico de Partidas
       </h2>
 
-      {matches.length > 0 ? (
-        <>
-          {currentMatches.map((match) => (
-            <MatchHistoryRow key={match.id} match={match} />
-          ))}
+      {pagedMatches.items.map((match) => (
+        <MatchHistoryRow key={match.id} match={match} />
+      ))}
 
-          <Pagination
-            currentPage={currentPage}
-            totalItems={matches.length}
-            itemsPerPage={itemsPerPage}
-            onPageChange={setCurrentPage}
-          />
-        </>
-      ) : (
-        <p className="text-gray-400 text-sm">Nenhuma partida encontrada.</p>
-      )}
+      <Pagination
+        currentPage={pagedMatches.pageNumber}
+        totalItems={pagedMatches.totalItems}
+        itemsPerPage={pagedMatches.pageSize}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 }
