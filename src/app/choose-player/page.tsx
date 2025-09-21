@@ -9,19 +9,12 @@ import { routes } from '../routes/routes';
 import { StringUtils } from '../utils/string.utils';
 
 export default function ChoosePlayerPage() {
-  const [mounted, setMounted] = useState(false);
   const [playerX, setPlayerX] = useState('');
   const [playerO, setPlayerO] = useState('');
   const [errors, setErrors] = useState({ x: false, o: false });
   const router = useRouter();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleStartGame = () => {
-    if (!mounted) return;
-
     const xEmpty = !playerX.trim();
     const oEmpty = !playerO.trim();
 

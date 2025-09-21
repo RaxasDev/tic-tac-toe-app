@@ -5,87 +5,23 @@ import MatchesChart from './MatchesChart';
 import RankingList from './RankingList';
 import { IMatchHistory } from '@/app/interfaces/match-history.interface';
 import MatchHistoryList from './MatchHistoryList';
+import { IChartsData } from '@/app/interfaces/charts-data.interface';
+import { IPlayerRanking } from '@/app/interfaces/player-ranking.interface';
 
-export default function TabsSection() {
+interface TabsSectionProps {
+  matchesHistory: IMatchHistory[];
+  chartsData: IChartsData | null;
+  ranking: IPlayerRanking[];
+  loading: boolean;
+}
+
+export default function TabsSection({
+  matchesHistory,
+  chartsData,
+  ranking,
+}: TabsSectionProps) {
   const [active, setActive] = useState('Visão Geral');
   const tabs = ['Visão Geral', 'Ranking', 'Histórico'];
-
-  const mockPlayers = [
-    {
-      position: 1,
-      name: 'Guidera',
-      matches: 1,
-      bestMoves: 6,
-      wins: 1,
-      losses: 0,
-      draws: 0,
-      winRate: 100,
-    },
-    {
-      position: 2,
-      name: 'Raxas',
-      matches: 5,
-      bestMoves: 5,
-      wins: 3,
-      losses: 2,
-      draws: 0,
-      winRate: 60,
-    },
-    {
-      position: 3,
-      name: 'XXXX',
-      matches: 4,
-      bestMoves: 6,
-      wins: 1,
-      losses: 3,
-      draws: 0,
-      winRate: 25,
-    },
-    {
-      position: 4,
-      name: 'Raxasxxx',
-      matches: 0,
-      bestMoves: null,
-      wins: 0,
-      losses: 0,
-      draws: 0,
-      winRate: 0,
-    },
-    {
-      position: 5,
-      name: 'Raxasxxxx',
-      matches: 0,
-      bestMoves: null,
-      wins: 0,
-      losses: 0,
-      draws: 0,
-      winRate: 0,
-    },
-  ];
-
-  const mockMatches: IMatchHistory[] = [
-    {
-      id: '1',
-      playerX: 'Guidera',
-      playerO: 'Raxas',
-      winner: 'X',
-      created: '2025-09-18 20:15',
-    },
-    {
-      id: '2',
-      playerX: 'XXXX',
-      playerO: 'Raxas',
-      winner: 'O',
-      created: '2025-09-18 21:00',
-    },
-    {
-      id: '3',
-      playerX: 'Raxas',
-      playerO: 'Raxasxxx',
-      winner: 'Empate',
-      created: '2025-09-19 10:30',
-    },
-  ];
 
   return (
     <div className="mt-6">
@@ -114,14 +50,16 @@ export default function TabsSection() {
       <div className="mt-6">
         {active === 'Visão Geral' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <VictoryChart />
-            <MatchesChart />
+            <VictoryChart dataApi={chartsData?.victoryData} />
+            <MatchesChart dataApi={chartsData?.matchesPerDay} />
           </div>
         )}
 
-        {active === 'Ranking' && <RankingList players={mockPlayers} />}
+        {active === 'Ranking' && <RankingList players={ranking} />}
 
-        {active === 'Histórico' && <MatchHistoryList matches={mockMatches} />}
+        {active === 'Histórico' && (
+          <MatchHistoryList matches={matchesHistory} />
+        )}
       </div>
     </div>
   );

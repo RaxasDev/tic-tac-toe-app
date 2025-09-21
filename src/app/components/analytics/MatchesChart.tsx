@@ -1,4 +1,5 @@
 'use client';
+import { IMatchesPerDay } from '@/app/interfaces/matches-per-day.interface';
 import {
   BarChart,
   Bar,
@@ -9,12 +10,12 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  { date: '2025-09-16', partidas: 1 },
-  { date: '2025-09-18', partidas: 4 },
-];
+interface MatchesChartProps {
+  dataApi?: IMatchesPerDay[];
+}
 
-export default function MatchesChart() {
+export default function MatchesChart({ dataApi }: MatchesChartProps) {
+    console.log(dataApi);
   return (
     <div
       className="p-4 rounded-2xl shadow-md w-full"
@@ -28,9 +29,9 @@ export default function MatchesChart() {
       </h2>
       <div className="w-full h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
+          <BarChart data={dataApi}>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="date" stroke="#9ca3af" />
+            <XAxis dataKey="dateMatches" stroke="#9ca3af" />
             <YAxis stroke="#9ca3af" />
             <Tooltip
               contentStyle={{
@@ -39,7 +40,7 @@ export default function MatchesChart() {
                 borderRadius: '0.5rem',
               }}
             />
-            <Bar dataKey="partidas" fill="#a78bfa" />
+            <Bar dataKey="matches" fill="#a78bfa" />
           </BarChart>
         </ResponsiveContainer>
       </div>

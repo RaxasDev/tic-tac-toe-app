@@ -1,4 +1,5 @@
 'use client';
+import { IVictoryChart } from '@/app/interfaces/victory-chart.interface';
 import {
   PieChart,
   Pie,
@@ -8,13 +9,17 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  { name: 'Jogador X', value: 60, color: '#ef4444' },
-  { name: 'Jogador O', value: 40, color: '#3b82f6' },
-  { name: 'Empates', value: 0, color: '#9ca3af' },
-];
+interface VictoryChartProps {
+  dataApi?: IVictoryChart[] | null;
+}
 
-export default function VictoryChart() {
+export default function VictoryChart({ dataApi }: VictoryChartProps) {
+  const data = dataApi?.map((item) => ({
+    name: item.name,
+    value: item.value,
+    color: item.color,
+  }));
+
   return (
     <div
       className="p-4 rounded-2xl shadow-md w-full h-full"
@@ -41,7 +46,7 @@ export default function VictoryChart() {
               }
               labelLine={false}
             >
-              {data.map((entry, index) => (
+              {data?.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
