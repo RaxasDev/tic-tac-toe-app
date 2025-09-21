@@ -18,7 +18,17 @@ export default function MatchHistoryList({
   if (loading) return <p className="text-gray-400">Carregando...</p>;
 
   if (!pagedMatches || pagedMatches.items.length === 0)
-    return <p className="text-gray-400">Nenhuma partida encontrada.</p>;
+    return (
+      <div
+        className="p-4 rounded-2xl shadow-md w-full h-full flex items-center justify-center text-gray-400"
+        style={{
+          background:
+            'linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))',
+        }}
+      >
+        Sem dados para apresentar
+      </div>
+    );
 
   return (
     <div

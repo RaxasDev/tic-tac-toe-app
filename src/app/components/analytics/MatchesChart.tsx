@@ -15,7 +15,22 @@ interface MatchesChartProps {
 }
 
 export default function MatchesChart({ dataApi }: MatchesChartProps) {
-    console.log(dataApi);
+  const noData =
+    !dataApi || !dataApi.length || dataApi.map((item) => item.matches).every((item) => item === 0);
+
+  if (noData) {
+    return (
+      <div
+        className="p-4 rounded-2xl shadow-md w-full h-full flex items-center justify-center text-gray-400"
+        style={{
+          background:
+            'linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))',
+        }}
+      >
+        Sem dados para apresentar
+      </div>
+    );
+  }
   return (
     <div
       className="p-4 rounded-2xl shadow-md w-full"

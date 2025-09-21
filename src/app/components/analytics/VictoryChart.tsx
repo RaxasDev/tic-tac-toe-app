@@ -14,6 +14,24 @@ interface VictoryChartProps {
 }
 
 export default function VictoryChart({ dataApi }: VictoryChartProps) {
+  const noData =
+    !dataApi ||
+    dataApi.every((item) => item.value === 0);
+
+  if (noData) {
+    return (
+      <div
+        className="p-4 rounded-2xl shadow-md w-full h-full flex items-center justify-center text-gray-400"
+        style={{
+          background:
+            'linear-gradient(145deg, hsl(220 15% 12%), hsl(220 15% 18%))',
+        }}
+      >
+        Sem dados para apresentar
+      </div>
+    );
+  }
+
   const data = dataApi?.map((item) => ({
     name: item.name,
     value: item.value,
