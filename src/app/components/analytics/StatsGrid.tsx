@@ -9,6 +9,18 @@ interface StatsGridProps {
 }
 
 export default function StatsGrid({ infoCards, loading }: StatsGridProps) {
+  const loadingCards = [0, 1, 2, 3];
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        {loadingCards.map((i) => (
+          <div key={i} className="h-24 bg-gray-700 animate-pulse rounded-lg" />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
       <StatsCard

@@ -55,20 +55,35 @@ export default function TabsSection({
       <div className="mt-6">
         {active === 'Visão Geral' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <VictoryChart dataApi={chartsData?.victoryData} />
-            <MatchesChart dataApi={chartsData?.matchesPerDay} />
+            {loading ? (
+              <div className="col-span-full text-center p-10 text-gray-400">
+                Carregando...
+              </div>
+            ) : (
+              <>
+                <VictoryChart dataApi={chartsData?.victoryData} />
+                <MatchesChart dataApi={chartsData?.matchesPerDay} />
+              </>
+            )}
           </div>
         )}
 
-        {active === 'Ranking' && <RankingList players={ranking} />}
+        {active === 'Ranking' &&
+          (loading ? (
+            <div className="p-10 text-center text-gray-400">Carregando...</div>
+          ) : (
+            <RankingList players={ranking} />
+          ))}
 
-        {active === 'Histórico' && (
-          <MatchHistoryList
-            pagedMatches={matchesPagination}
-            onPageChange={onMatchesPageChange}
-            loading={loading}
-          />
-        )}
+        {active === 'Histórico' &&
+          (loading ? (
+            <div className="p-10 text-center text-gray-400">Carregando...</div>
+          ) : (
+            <MatchHistoryList
+              pagedMatches={matchesPagination}
+              onPageChange={onMatchesPageChange}
+            />
+          ))}
       </div>
     </div>
   );

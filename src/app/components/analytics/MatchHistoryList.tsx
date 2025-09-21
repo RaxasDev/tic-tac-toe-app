@@ -7,16 +7,12 @@ import { IPagedQueryResult } from '@/app/interfaces/paged-query-result.interface
 interface MatchHistoryListProps {
   pagedMatches: IPagedQueryResult<IMatchHistory> | null;
   onPageChange: (page: number) => void;
-  loading: boolean;
 }
 
 export default function MatchHistoryList({
   pagedMatches,
-  onPageChange,
-  loading,
+  onPageChange
 }: MatchHistoryListProps) {
-  if (loading) return <p className="text-gray-400">Carregando...</p>;
-
   if (!pagedMatches || pagedMatches.items.length === 0)
     return (
       <div
